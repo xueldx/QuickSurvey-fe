@@ -1,0 +1,15 @@
+.container {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+        font-size: 24px;      
+        color: #f7f7f7; 
+        font-weight: 700;     
+    }
+    div:nth-child(1){
+        margin-right: 10px;
+    }
+}

@@ -1,0 +1,25 @@
+body{
+    background-color: #edeff3;
+}
+.container{
+   margin-bottom: 20px;
+   border-radius: 10px;
+   padding: 10px;
+   background-color: #fff;
+   .title{
+    display: flex;
+    justify-content: space-between;
+    // .left{
+    //     flex:1;
+    // }
+    // .right{
+    //     flex:1;
+    //     text-align: right;
+    // }
+   }
+   .button{
+    display: flex;
+    justify-content: space-between;
+    
+   }
+}

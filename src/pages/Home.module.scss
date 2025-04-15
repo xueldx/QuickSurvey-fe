@@ -1,0 +1,21 @@
+.container{
+    width: 100%;
+    height: calc(100vh - 64px - 65px);
+    position: relative;
+    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    
+    .info{
+        position: fixed;
+        left: 50%;
+        top:50%;
+        transform:translate(-50%,-50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        button {
+                height: 60px;
+                font-size: 24px;
+            }
+    }
+}
