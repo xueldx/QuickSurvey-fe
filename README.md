@@ -1,4 +1,4 @@
-### 本资源由 itjc8.com 收集整理
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
