@@ -22,16 +22,51 @@ const Register: FC = () => {
       </div>
       <div>
         <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} onFinish={onFinish}>
-          <Form.Item label="用户名" name="userName">
+          <Form.Item
+            label="用户名"
+            name="userName"
+            rules={[
+              { required: true, message: '请输入用户名' },
+              { type: 'string', min: 5, max: 20, message: '字符长度在5-20之间' },
+              {
+                pattern: /^\w+$/,
+                message: '请输入字母、数字、下划线',
+              },
+            ]}
+          >
             <Input></Input>
           </Form.Item>
-          <Form.Item label="昵称" name="nickName">
+          <Form.Item
+            label="昵称"
+            name="nickName"
+            rules={[{ required: true, message: '请输入昵称' }]}
+          >
             <Input></Input>
           </Form.Item>
-          <Form.Item label="密码" name="password">
+          <Form.Item
+            label="密码"
+            name="password"
+            rules={[{ required: true, message: '请输入密码' }]}
+          >
             <Input.Password></Input.Password>
           </Form.Item>
-          <Form.Item label="确认密码" name="confirm">
+          <Form.Item
+            label="确认密码"
+            name="confirm"
+            dependencies={['password']} // 依赖于 password ，password 变化，会重新触发 validator
+            rules={[
+              { required: true, message: '请输入密码' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || value === getFieldValue('password')) {
+                    return Promise.resolve()
+                  } else {
+                    return Promise.reject(new Error('两次输入的密码不一致'))
+                  }
+                },
+              }),
+            ]}
+          >
             <Input.Password></Input.Password>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 6, span: 18 }}>

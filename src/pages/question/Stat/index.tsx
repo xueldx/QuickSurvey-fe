@@ -1,6 +1,13 @@
 import React, { FC } from 'react'
+import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 
 const Stat: FC = () => {
-  return <> 问卷统计</>
+  const { loading, questionData } = useLoadQuestionData()
+  return (
+    <>
+      问卷统计
+      {loading ? <p>loading</p> : <p>{JSON.stringify(questionData)}</p>}
+    </>
+  )
 }
 export default Stat
