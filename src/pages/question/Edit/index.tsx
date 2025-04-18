@@ -2,11 +2,11 @@ import React, { FC } from 'react'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 
 const Edit: FC = () => {
-  const { loading, questionData } = useLoadQuestionData()
+  const { loading, data } = useLoadQuestionData()
   return (
     <>
       问卷编辑
-      {loading ? <p>loading</p> : <p>{JSON.stringify(questionData)}</p>}
+      {loading ? <p>loading</p> : <p>{JSON.stringify(data)}</p>}
     </>
   )
 }

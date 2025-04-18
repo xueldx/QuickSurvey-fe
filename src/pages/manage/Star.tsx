@@ -1,49 +1,19 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import styles from './common.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { useTitle } from 'ahooks'
-import { Typography, Empty } from 'antd'
+import { Typography, Empty, Spin } from 'antd'
 import ListSearch from '../../components/ListSearch'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
+import ListPage from '../../components/ListPage'
 
 const { Title } = Typography
-const rawQuestionList = [
-  {
-    _id: 'q1',
-    title: '问卷1',
-    isPublished: false,
-    isStar: true,
-    answerCount: 5,
-    createdAt: '3月10日 13:33',
-  },
-  {
-    _id: 'q2',
-    title: '问卷2',
-    isPublished: true,
-    isStar: false,
-    answerCount: 5,
-    createdAt: '3月14日 13:33',
-  },
-  {
-    _id: 'q3',
-    title: '问卷3',
-    isPublished: false,
-    isStar: true,
-    answerCount: 45,
-    createdAt: '3月16日 13:33',
-  },
-  {
-    _id: 'q4',
-    title: '问卷4',
-    isPublished: true,
-    isStar: false,
-    answerCount: 20,
-    createdAt: '3月19日 13:33',
-  },
-]
-const rawQuestionListStar = rawQuestionList.filter(q => q.isStar === true)
+
 const Star: FC = () => {
   useTitle('小慕问卷-星标问卷')
-  const [questionList, setQuestionList] = useState(rawQuestionListStar)
+  const { data = {}, loading } = useLoadQuestionListData({ isStar: true })
+  const { list = [], total = 0 } = data
+
   return (
     <>
       <div className={styles.header}>
@@ -55,15 +25,24 @@ const Star: FC = () => {
         </div>
       </div>
       <div className={styles.content}>
-        {questionList.length === 0 && <Empty description="暂无数据"></Empty>}
-        {questionList.length > 0 &&
-          questionList.map(q => {
+        {loading && (
+          <div style={{ textAlign: 'center' }}>
+            <Spin></Spin>
+          </div>
+        )}
+        {!loading && list.length === 0 && <Empty description="暂无数据"></Empty>}
+
+        {!loading &&
+          list.length > 0 &&
+          list.map((q: any) => {
             const { _id } = q
             return <QuestionCard key={_id} {...q} />
           })}
       </div>
-      {/* TODO */}
-      <div className={styles.footer}>分页</div>
+
+      <div className={styles.footer}>
+        <ListPage total={total}></ListPage>
+      </div>
     </>
   )
 }
