@@ -2,6 +2,8 @@ import React, { FC } from 'react'
 import styles from './common.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { useTitle } from 'ahooks'
+import classNamas from 'classnames'
+
 import { Typography, Empty, Spin } from 'antd'
 import ListSearch from '../../components/ListSearch'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
@@ -14,6 +16,11 @@ const Star: FC = () => {
   const { data = {}, loading } = useLoadQuestionListData({ isStar: true })
   const { list = [], total = 0 } = data
 
+  const contentClass = classNamas({
+    [styles.content]: true,
+    [styles.starContent]: true,
+  })
+
   return (
     <>
       <div className={styles.header}>
@@ -24,7 +31,7 @@ const Star: FC = () => {
           <ListSearch />
         </div>
       </div>
-      <div className={styles.content}>
+      <div className={contentClass}>
         {loading && (
           <div style={{ textAlign: 'center' }}>
             <Spin></Spin>

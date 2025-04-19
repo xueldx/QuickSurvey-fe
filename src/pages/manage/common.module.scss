@@ -11,7 +11,32 @@
     }
 }
 .content{
-    margin-bottom: 20px;
+    margin-bottom: 20px;   
+
+        overflow-y: auto;
+        padding-right: 10px;
+    
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+    
+        &::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 3px;
+        }
+    
+        &::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+}
+.listContent{
+     height: calc(100vh - 152px - 110px);
+}
+.starContent{
+     height: calc(100vh - 152px - 145px);
+}
+.tableContent{
+    height: calc(100vh - 185px - 170px);
 }
 .footer{
     text-align: center;

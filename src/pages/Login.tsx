@@ -1,15 +1,17 @@
 import React, { FC, useEffect } from 'react'
-import { Typography, Space, Form, Input, Button, Checkbox } from 'antd'
+import { Typography, Space, Form, Input, Button, Checkbox, message } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
 import styles from './Login.module.scss'
-import { Link } from 'react-router-dom'
-import { REGISTER_PATHNAME } from '../router'
-import Password from 'antd/es/input/Password'
-
+import { Link, useNavigate } from 'react-router-dom'
+import { useRequest } from 'ahooks'
+import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME } from '../router'
+import { setToken } from '../utils/user-token'
+import { loginService } from '../services/user'
 const { Title } = Typography
 const Login: FC = () => {
-  const USERNAME_KEY = 'USERNAME',
-    PASSWORD_KEY = 'PASSWORD'
+  const USERNAME_KEY = 'USERNAME'
+  const PASSWORD_KEY = 'PASSWORD'
+  const nav = useNavigate()
   //记住我
   function rememberUser(userName: string, password: string) {
     localStorage.setItem(USERNAME_KEY, userName)
@@ -34,10 +36,25 @@ const Login: FC = () => {
     form.setFieldsValue({ userName, password })
   }, [])
 
+  //用户登录
+  const { run } = useRequest(
+    async (userName: string, password: string) => {
+      const data = await loginService(userName, password)
+      return data
+    },
+    {
+      manual: true,
+      onSuccess(result) {
+        const { token = '' } = result
+        setToken(token)
+        message.success('登录成功')
+        nav(MANAGE_INDEX_PATHNAME)
+      },
+    }
+  )
   function onFinish(values: any) {
     const { remember, userName, password } = values || {}
-    console.log(values)
-
+    run(userName, password)
     if (remember) {
       rememberUser(userName, password)
     } else {

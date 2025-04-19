@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react'
 import styles from './common.module.scss'
-import QuestionCard from '../../components/QuestionCard'
-import { useTitle } from 'ahooks'
-import { Typography, Table, Empty, Tag, Space, Button, Modal, Spin } from 'antd'
+import { useTitle, useRequest } from 'ahooks'
+import classNames from 'classnames'
+import { Typography, Table, Empty, Tag, Space, Button, Modal, Spin, message } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import ListSearch from '../../components/ListSearch'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import ListPage from '../../components/ListPage'
+import { updateQuestionService, deleteQuestionService } from '../../services/question'
 
 const { Title } = Typography
 const { confirm } = Modal
@@ -42,9 +43,40 @@ const col = [
 
 const Trash: FC = () => {
   useTitle('小慕问卷-回收站')
-  const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
+  const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true })
   const { list = [], total = 0 } = data
   const [selectedIds, setSelectedIds] = useState<string[]>([])
+
+  //恢复问卷
+  const { run: recover, loading: recoverLoading } = useRequest(
+    async () => {
+      for await (const id of selectedIds) {
+        await updateQuestionService(id, { isDeleted: false })
+      }
+    },
+    {
+      manual: true,
+      debounceWait: 500,
+      onSuccess() {
+        message.success('恢复成功,请到问卷列表页查看')
+        refresh() //恢复成功后手动刷新列表
+        setSelectedIds([])
+      },
+    }
+  )
+  //删除问卷
+  const { run: deleteQuestion, loading: deleteLoading } = useRequest(
+    async () => await deleteQuestionService(selectedIds),
+    {
+      manual: true,
+      debounceWait: 500,
+      onSuccess() {
+        message.success('删除成功')
+        refresh()
+        setSelectedIds([])
+      },
+    }
+  )
   function del() {
     confirm({
       title: '确认删除问卷吗？',
@@ -52,22 +84,30 @@ const Trash: FC = () => {
       content: '删除后将无法找回',
       okText: '确认',
       cancelText: '取消',
-      onOk: () => {
-        alert(`已删除${selectedIds}`)
-      },
+      onOk: deleteQuestion,
     })
   }
+  const tableClass = classNames({
+    [styles.content]: true,
+    [styles.tableContent]: true,
+  })
   const tableElement = (
     <>
       <Space style={{ marginBottom: '10px' }}>
-        <Button type="primary" disabled={selectedIds.length === 0}>
+        <Button
+          type="primary"
+          disabled={selectedIds.length === 0 || recoverLoading}
+          onClick={recover}
+        >
           恢复
         </Button>
-        <Button danger disabled={selectedIds.length === 0} onClick={del}>
+        <Button danger disabled={selectedIds.length === 0 || deleteLoading} onClick={del}>
           彻底删除
         </Button>
       </Space>
       <Table
+        sticky
+        className={tableClass}
         dataSource={list}
         columns={col}
         pagination={false}
