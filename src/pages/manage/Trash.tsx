@@ -131,7 +131,7 @@ const Trash: FC = () => {
           <ListSearch />
         </div>
       </div>
-      <div className={styles.content}>
+      <div className={(styles.content, styles.trashContent)}>
         {loading && (
           <div style={{ textAlign: 'center' }}>
             <Spin></Spin>
