@@ -1,26 +1,43 @@
-// import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
 import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { resetComponents } from '../store/componentsReducer'
 import { getQuestionService } from '../services/question'
 
 function useLoadQuestionData() {
   const { id = '' } = useParams()
-  //  const [loading, setLoading] = useState(true)
-  // const [questionData, setQuestionData] = useState({})
-  // useEffect(() => {
-  //   async function fn() {
-  //     const data = await getQuestionService(id)
-  //     setQuestionData(data)
-  //     setLoading(false)
-  //   }
-  //   fn()
-  // }, [])
-  async function load() {
-    const data = await getQuestionService(id)
-    return data
-  }
-  const { loading, data, error } = useRequest(load)
-  return { loading, data, error }
+  const dispatch = useDispatch()
+
+  //发请求加载用户信息
+  const { loading, data, error, run } = useRequest(
+    async id => {
+      if (!id) throw new Error('没有问卷id，无法加载问卷信息')
+      const data = await getQuestionService(id)
+      return data
+    },
+    {
+      manual: true,
+    }
+  )
+
+  //得到数据存储到redux中
+  useEffect(() => {
+    if (!data) return
+    const { title = '', componentList = [] } = data
+    let selectedId = ''
+    //默认选中第一个组件
+    if (componentList.length > 0) {
+      selectedId = componentList[0].fe_id
+    }
+    dispatch(resetComponents({ componentList, selectedId }))
+  }, [data])
+
+  //id变化就加载对应的问卷数据
+  useEffect(() => {
+    run(id)
+  }, [id])
+  return { loading, error }
 }
 
 export default useLoadQuestionData
