@@ -1,0 +1,25 @@
+.header-wrapper{
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 12px 0;
+}
+
+.header{
+    display: flex;
+    margin:0 24px;
+    justify-content: space-between;
+   
+    h1{
+        font-size: 18px;
+        margin-bottom: 0;
+        line-height: 1; //行高是字体大小的1倍（一样大）
+        margin-left: 12px;
+    }
+    .left{
+        display: flex;
+        align-items: center;
+    }
+    .main{}
+    .right{}
+
+}

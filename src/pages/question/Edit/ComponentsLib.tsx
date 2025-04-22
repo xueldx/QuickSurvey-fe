@@ -16,7 +16,16 @@ const Lib: FC = () => {
 
     //把当前点击的组件添加到store中，闭包特性使得内层handleClick函数能访问到外层当前被点击组件的各个属性
     function handleClick() {
-      dispatch(addComponent({ fe_id: nanoid().toString(), title, type, props: defaultProps }))
+      dispatch(
+        addComponent({
+          fe_id: nanoid().toString(),
+          title,
+          isHidden: false,
+          isLocked: false,
+          type,
+          props: defaultProps,
+        })
+      )
     }
     return (
       <div key={type} className={styles.wrapper} onClick={handleClick}>

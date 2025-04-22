@@ -3,7 +3,7 @@
  */
 
 import Component from './component'
-// import PropComponent from './PropComponent'
+import PropComponent from './PropComponent'
 import { questionInputDefaultProps } from './interface'
 
 export * from './interface'
@@ -13,6 +13,6 @@ export default {
   title: '输入框',
   type: 'questionInput', // 要和后端统一好
   Component, // 画布显示的组件
-  // PropComponent, // 修改属性
+  PropComponent, // 修改属性
   defaultProps: questionInputDefaultProps,
 }

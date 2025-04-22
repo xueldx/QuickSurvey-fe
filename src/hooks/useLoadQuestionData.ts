@@ -30,7 +30,7 @@ function useLoadQuestionData() {
     if (componentList.length > 0) {
       selectedId = componentList[0].fe_id
     }
-    dispatch(resetComponents({ componentList, selectedId }))
+    dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
   }, [data])
 
   //id变化就加载对应的问卷数据

@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { ComponentInfoType, changeSelectedId } from '../../../store/componentsReducer'
 import { getComponentConfByType, ComponentConfType } from '../../../components/questionComponents'
+import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 
 type PropsType = {
   loading: boolean
@@ -21,6 +22,7 @@ function genComponent(componentInfo: ComponentInfoType) {
 const EditCanvas: FC<PropsType> = ({ loading }) => {
   const { componentList, selectedId } = useGetComponentInfo()
   const dispatch = useDispatch()
+  useBindCanvasKeyPress()
 
   //改变默认选中id
   function handleClick(e: MouseEvent, id: string) {
@@ -38,27 +40,31 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
   return (
     <div className={styles.canvas}>
       {/* 根据redux store 中的问卷组件列表信息生成真正的对应组件 */}
-      {componentList.map(c => {
-        const { fe_id } = c
-        //判断是否为选中的组件，是则加上蓝色边框
-        const wrapperDefaultClassName = styles['component-wrapper']
-        const selectedClassNames = styles.selected
-        const wrapperClassNames = classNames({
-          [wrapperDefaultClassName]: true,
-          [selectedClassNames]: selectedId === fe_id,
-        })
-        return (
-          <div
-            key={fe_id}
-            className={wrapperClassNames}
-            onClick={e => {
-              handleClick(e, fe_id)
-            }}
-          >
-            <div className={styles.component}>{genComponent(c)}</div>
-          </div>
-        )
-      })}
+      {componentList
+        .filter(c => !c.isHidden)
+        .map(c => {
+          const { fe_id, isLocked } = c
+          //判断是否为选中的组件，是则加上蓝色边框
+          const wrapperDefaultClassName = styles['component-wrapper']
+          const selectedClassNames = styles.selected
+          const lockedClassNames = styles.locked
+          const wrapperClassNames = classNames({
+            [wrapperDefaultClassName]: true,
+            [selectedClassNames]: selectedId === fe_id,
+            [lockedClassNames]: isLocked,
+          })
+          return (
+            <div
+              key={fe_id}
+              className={wrapperClassNames}
+              onClick={e => {
+                handleClick(e, fe_id)
+              }}
+            >
+              <div className={styles.component}>{genComponent(c)}</div>
+            </div>
+          )
+        })}
     </div>
   )
 }

@@ -17,6 +17,10 @@
 .selected{
         border-color: #25aef3!important;
 }
+.locked{
+    opacity: .5;
+    cursor: not-allowed;
+}
 .component{
     pointer-events: none;//屏蔽鼠标行为
 }
