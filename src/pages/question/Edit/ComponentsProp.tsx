@@ -4,6 +4,7 @@ import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { getComponentConfByType } from '../../../components/questionComponents'
 import { ComponentPropsType } from '../../../components/questionComponents/index'
 import { changeComponentProps } from '../../../store/componentsReducer'
+import styles from './ComponentsProp.module.scss'
 
 const NoProps: FC = () => {
   return <div style={{ textAlign: 'center' }}>没有选中组件</div>
@@ -28,11 +29,13 @@ const ComponentsProp: FC = () => {
     dispatch(changeComponentProps({ fe_id, newProps }))
   }
   return (
-    <PropComponent
-      {...props}
-      onChange={changeProps}
-      disabled={isLocked || isHidden}
-    ></PropComponent>
+    <div className={styles.container}>
+      <PropComponent
+        {...props}
+        onChange={changeProps}
+        disabled={isLocked || isHidden}
+      ></PropComponent>
+    </div>
   )
 }
 

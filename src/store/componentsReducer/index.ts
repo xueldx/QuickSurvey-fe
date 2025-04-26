@@ -127,6 +127,15 @@ export const componentsSlice = createSlice({
       if (selectedIndex + 1 == componentList.length) return //选中的是最后一个，无法再向下选
       draft.selectedId = componentList[selectedIndex + 1].fe_id
     }),
+    //修改标题
+    changeComponentTitle: produce(
+      (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string; title: string }>) => {
+        const { title, fe_id } = action.payload
+        const curComp = draft.componentList.find(c => c.fe_id === fe_id)
+        if (!curComp) return
+        curComp.title = title
+      }
+    ),
   },
 })
 
@@ -142,5 +151,6 @@ export const {
   pasteCopiedComponent,
   selectPrevComponent,
   selectNextComponent,
+  changeComponentTitle,
 } = componentsSlice.actions
 export default componentsSlice.reducer

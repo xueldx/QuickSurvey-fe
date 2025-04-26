@@ -1,0 +1,49 @@
+.container {
+    height: 600px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #fff;
+    }
+}
+.wrapper {
+    padding: 6px 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, .06);
+    display: flex;
+
+    .title {
+        flex: auto;
+        line-height: 2;
+    }
+
+    .selected {
+        color: #1890ff;
+        
+    }
+
+    .handler {
+        width: 50px;
+        text-align: end;
+
+        .btn {
+            opacity: .2;
+        }
+    }
+
+    &:hover {
+        .handler {
+            .btn {
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -6,7 +6,7 @@ const PropComponent: FC<QuestionParagraphPropsType> = (props: QuestionParagraphP
   const { text, isCenter, onChange, disabled } = props
   const [form] = Form.useForm()
   const { TextArea } = Input
-  //当切换画布同类组件，还是共用同一个属性组件，但是传入不同的props，此时这个组件也要切换显示内容
+  //当切换画布同类组件，还是共用同一个属性组件，但是传入不同的props，此时这个组件也要切换显示内容=>非必要（redux自动获取新数据然后更新页面），但以防万一
   useEffect(() => {
     form.setFieldsValue({ text, isCenter })
   }, [text, isCenter])
@@ -27,7 +27,7 @@ const PropComponent: FC<QuestionParagraphPropsType> = (props: QuestionParagraphP
         name="text"
         rules={[{ required: true, message: '请输入段落内容' }]}
       >
-        <TextArea></TextArea>
+        <TextArea style={{ height: '200px' }}></TextArea>
       </Form.Item>
 
       <Form.Item name="isCenter" valuePropName="checked">

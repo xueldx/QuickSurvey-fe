@@ -35,8 +35,9 @@ const Lib: FC = () => {
       </div>
     )
   }
+
   return (
-    <>
+    <div className={styles.container}>
       {/* 根据组件类别分组渲染组件 */}
       {ComponentConfGroup.map((group, index) => {
         const { groupId, groupName, components } = group
@@ -50,7 +51,7 @@ const Lib: FC = () => {
           </div>
         )
       })}
-    </>
+    </div>
   )
 }
 

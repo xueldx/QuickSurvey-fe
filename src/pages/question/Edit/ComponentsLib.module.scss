@@ -1,5 +1,6 @@
 .wrapper{
     margin-bottom: 12px;
+    margin-right: 10px;
     padding: 12px;
     cursor: pointer;
     background-color: #f5f5f5;
@@ -11,4 +12,19 @@
 }
 .component{
     pointer-events: none;
+}
+.container{
+   height: 600px;
+   overflow-y: auto;
+  &::-webkit-scrollbar {
+        width: 6px;
+    }
+  &::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+      background-color: #fff;
+  }
 }
