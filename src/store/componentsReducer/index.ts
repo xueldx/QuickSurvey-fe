@@ -3,6 +3,7 @@ import { produce } from 'immer'
 import { nanoid } from 'nanoid'
 import { ComponentPropsType } from '../../components/questionComponents'
 import { getNextSelectedId, insertNewComponent } from './utils'
+import { arrayMove } from '@dnd-kit/sortable'
 
 //单个组件的类型信息
 export type ComponentInfoType = {
@@ -26,10 +27,21 @@ export const componentsSlice = createSlice({
   name: 'components',
   initialState: INIT_STATE,
   reducers: {
-    //重置组件列表
+    //重置信息
     resetComponents(state: ComponentsStateType, action: PayloadAction<ComponentsStateType>) {
       return action.payload
     },
+    //移动组件
+    moveComponentList: produce(
+      (
+        draft: ComponentsStateType,
+        action: PayloadAction<{ oldIndex: number; newIndex: number }>
+      ) => {
+        const { newIndex, oldIndex } = action.payload
+        const { componentList: curComponentList } = draft
+        draft.componentList = arrayMove(curComponentList, oldIndex, newIndex)
+      }
+    ),
     //改变当前被选中组件
     changeSelectedId: produce((draft: ComponentsStateType, action: PayloadAction<string>) => {
       draft.selectedId = action.payload
@@ -152,5 +164,6 @@ export const {
   selectPrevComponent,
   selectNextComponent,
   changeComponentTitle,
+  moveComponentList,
 } = componentsSlice.actions
 export default componentsSlice.reducer

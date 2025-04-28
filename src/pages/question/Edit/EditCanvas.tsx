@@ -4,9 +4,15 @@ import { useDispatch } from 'react-redux'
 import styles from './EditCanvas.module.scss'
 import classNames from 'classnames'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import { ComponentInfoType, changeSelectedId } from '../../../store/componentsReducer'
+import {
+  ComponentInfoType,
+  changeSelectedId,
+  moveComponentList,
+} from '../../../store/componentsReducer'
 import { getComponentConfByType, ComponentConfType } from '../../../components/questionComponents'
 import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
+import SortableContainer from '../../../components/DragSortable/SortableContainer'
+import SortableItem from '../../../components/DragSortable/SortableItem'
 
 type PropsType = {
   loading: boolean
@@ -37,12 +43,22 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
       </div>
     )
   }
+  //渲染可见的组件
+  const componentListFilterd = componentList.filter(c => !c.isHidden)
+  //加上id用于SortableContainer的items属性
+  const componentListFilterdWithId = componentListFilterd.map(c => {
+    return { ...c, id: c.fe_id }
+  })
+
+  //拖拽完毕后改变redux中的componnetsList
+  function handleDragEnd(oldIndex: number, newIndex: number) {
+    dispatch(moveComponentList({ oldIndex, newIndex }))
+  }
   return (
-    <div className={styles.canvas}>
-      {/* 根据redux store 中的问卷组件列表信息生成真正的对应组件 */}
-      {componentList
-        .filter(c => !c.isHidden)
-        .map(c => {
+    <SortableContainer items={componentListFilterdWithId} onDragEnd={handleDragEnd}>
+      <div className={styles.canvas}>
+        {/* 根据redux store 中的问卷组件列表信息生成真正的对应组件 */}
+        {componentListFilterd.map(c => {
           const { fe_id, isLocked } = c
           //判断是否为选中的组件，是则加上蓝色边框
           const wrapperDefaultClassName = styles['component-wrapper']
@@ -54,18 +70,20 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
             [lockedClassNames]: isLocked,
           })
           return (
-            <div
-              key={fe_id}
-              className={wrapperClassNames}
-              onClick={e => {
-                handleClick(e, fe_id)
-              }}
-            >
-              <div className={styles.component}>{genComponent(c)}</div>
-            </div>
+            <SortableItem key={fe_id} id={fe_id}>
+              <div
+                className={wrapperClassNames}
+                onClick={e => {
+                  handleClick(e, fe_id)
+                }}
+              >
+                <div className={styles.component}>{genComponent(c)}</div>
+              </div>
+            </SortableItem>
           )
         })}
-    </div>
+      </div>
+    </SortableContainer>
   )
 }
 export default EditCanvas

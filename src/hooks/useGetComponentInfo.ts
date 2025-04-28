@@ -7,7 +7,7 @@ function useGetComponentInfo() {
     componentList = [],
     selectedId = '',
     copiedComponent = null,
-  } = useSelector<StateType>(state => state.components) as ComponentsStateType
+  } = useSelector<StateType>(state => state.components.present) as ComponentsStateType
 
   //当前选中的组件信息
   const selectedComponent = componentList.find(c => c.fe_id === selectedId)

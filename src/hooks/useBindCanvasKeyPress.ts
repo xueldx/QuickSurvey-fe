@@ -1,5 +1,6 @@
 import { useKeyPress } from 'ahooks'
 import { useDispatch } from 'react-redux'
+import { ActionCreators as UndoActionCreators } from 'redux-undo'
 import {
   removeSelectedComponent,
   copySelectedComponent,
@@ -8,11 +9,12 @@ import {
   selectNextComponent,
 } from '../store/componentsReducer'
 
-//判断当前鼠标活动元素是不是合法可以被删除的
+//判断当前鼠标活动元素是不是合法可以被快捷键操作的
 function isValidActiveElement() {
   const activeEle = document.activeElement
-  //没有选中input等用户输入组件，则是合法的可以被删除的元素
+  //没有选中input等用户输入组件，则是合法的可以被快捷键操作的元素
   if (activeEle == document.body) return true
+  if (activeEle?.matches('div[role="button"]')) return true //如果是dnd-kit元素（画布中的），也认为是合法可删除……
   return false
 }
 function useBindCanvasKeyPress() {
@@ -42,6 +44,28 @@ function useBindCanvasKeyPress() {
     if (!isValidActiveElement()) return
     dispatch(selectNextComponent())
   })
+  //撤销
+  useKeyPress(
+    ['ctrl.z', 'meta.z'],
+    () => {
+      if (!isValidActiveElement()) return
+      dispatch(UndoActionCreators.undo())
+    },
+    {
+      exactMatch: true, // 严格匹配
+    }
+  )
+  //重做
+  useKeyPress(
+    ['ctrl.shift.z', 'meta.shift.z'],
+    () => {
+      if (!isValidActiveElement()) return
+      dispatch(UndoActionCreators.redo())
+    },
+    {
+      exactMatch: true, // 严格匹配
+    }
+  )
 }
 
 export default useBindCanvasKeyPress

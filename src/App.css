@@ -1,4 +1,4 @@
-/* dnd-kit 脱宅排序 */
+/* dnd-kit 拖拽排序的自动外边框去掉 */
 div[role="button"] {
   outline: 0;
 }

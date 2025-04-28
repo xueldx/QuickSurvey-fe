@@ -23,7 +23,7 @@ const RightPanel: FC = () => {
     {
       key: TAB_KEYS.PROPS_KEY,
       label: (
-        <span>
+        <span onClick={() => setActiveKey(TAB_KEYS.PROPS_KEY)}>
           <FileTextFilled></FileTextFilled>属性
         </span>
       ),
@@ -32,7 +32,7 @@ const RightPanel: FC = () => {
     {
       key: TAB_KEYS.SETTING_KEY,
       label: (
-        <span>
+        <span onClick={() => setActiveKey(TAB_KEYS.SETTING_KEY)}>
           <SettingOutlined></SettingOutlined>页面设置
         </span>
       ),
