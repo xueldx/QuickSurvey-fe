@@ -3,6 +3,7 @@
  */
 
 import Component from './component'
+import StatComponent from './StatComponent'
 import PropComponent from './PropComponent'
 import { questionCheckboxDefaultProps } from './interface'
 
@@ -15,4 +16,5 @@ export default {
   Component, // 画布显示的组件
   PropComponent, // 修改属性
   defaultProps: questionCheckboxDefaultProps,
+  StatComponent,
 }

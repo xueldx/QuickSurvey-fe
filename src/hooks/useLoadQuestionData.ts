@@ -10,7 +10,7 @@ function useLoadQuestionData() {
   const { id = '' } = useParams()
   const dispatch = useDispatch()
 
-  //发请求加载用户信息
+  //发请求加载问卷信息
   const { loading, data, error, run } = useRequest(
     async id => {
       if (!id) throw new Error('没有问卷id，无法加载问卷信息')
@@ -25,14 +25,21 @@ function useLoadQuestionData() {
   //得到数据存储到redux中
   useEffect(() => {
     if (!data) return
-    const { title = '', desc = '', css = '', js = '', componentList = [] } = data
+    const {
+      title = '',
+      desc = '',
+      css = '',
+      js = '',
+      isPublished = false,
+      componentList = [],
+    } = data
     let selectedId = ''
     //默认选中第一个组件
     if (componentList.length > 0) {
       selectedId = componentList[0].fe_id
     }
     dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
-    dispatch(resetPageInfo({ title, desc, css, js }))
+    dispatch(resetPageInfo({ title, desc, css, js, isPublished }))
   }, [data])
 
   //id变化就加载对应的问卷数据

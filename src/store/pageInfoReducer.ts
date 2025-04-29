@@ -6,6 +6,7 @@ export type PageInfoStateType = {
   desc: string
   css: string
   js: string
+  isPublished?: boolean
 }
 
 const INIT_STATE = {

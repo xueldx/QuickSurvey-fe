@@ -106,7 +106,7 @@ const EditToolBar: FC = () => {
           disabled={isLast}
         ></Button>
       </Tooltip>
-      <Tooltip title="撤销重做">
+      <Tooltip title="撤销">
         <Button shape="circle" icon={<UndoOutlined />} onClick={undo}></Button>
       </Tooltip>
       <Tooltip title="重做">

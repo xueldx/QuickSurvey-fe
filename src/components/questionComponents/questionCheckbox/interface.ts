@@ -20,3 +20,7 @@ export const questionCheckboxDefaultProps: QuestionCheckboxPropsType = {
     { text: '选项3', value: '3', checked: false },
   ],
 }
+
+export type QuestionCheckboxStatPropsType = {
+  stat: Array<{ name: string; count: number }>
+}

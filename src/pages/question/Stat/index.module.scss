@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    flex: auto;
+    padding: 12px 0;
+    text-align: center;
+}
+
+.content {
+    margin: 0 24px;
+    display: flex;
+
+    .left {
+        width: 300px;
+        // width: calc(25vm);
+        margin-right: 24px;
+        overflow: hidden;
+    }
+
+    .main {
+        flex: auto;
+      
+        background-color: #fff;
+        padding: 12px 18px;
+        overflow: hidden;
+    }
+
+    .right {
+        width: 400px;
+        // width: calc(25vm);
+        margin-left: 24px;
+        background-color: #fff;
+        padding: 12px 18px;
+        overflow: hidden;
+    }
+}

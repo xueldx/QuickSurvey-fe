@@ -1,0 +1,41 @@
+.canvas{
+    height: calc(89vh);
+    background-color: #fff;
+    overflow-y: auto;
+    
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+    
+        &::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 3px;
+        }
+    
+        &::-webkit-scrollbar-track {
+            background-color: #fff;
+        }
+
+}
+.component-wrapper {
+    margin: 12px;
+    border: 1px solid #fff;
+    padding: 12px;
+    border-radius: 3px;
+    text-align: left;
+
+    &:hover {
+        border-color: #d9d9d9;
+    }
+}
+.selected{
+        border-color: #25aef3!important;
+}
+.locked{
+    opacity: .5;
+    cursor: not-allowed;
+}
+.component{
+    pointer-events: none;//屏蔽鼠标行为
+    opacity: .8;
+}
