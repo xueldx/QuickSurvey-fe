@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import { Typography } from 'antd'
 import { nanoid } from 'nanoid'
 import { useDispatch } from 'react-redux'
@@ -15,7 +15,7 @@ const Lib: FC = () => {
     const { title, type, Component, defaultProps } = c
 
     //把当前点击的组件添加到store中，闭包特性使得内层handleClick函数能访问到外层当前被点击组件的各个属性
-    function handleClick() {
+    const handleClick = useCallback(function handleClick() {
       dispatch(
         addComponent({
           fe_id: nanoid().toString(),
@@ -26,7 +26,7 @@ const Lib: FC = () => {
           props: defaultProps,
         })
       )
-    }
+    }, [])
     return (
       <div key={type} className={styles.wrapper} onClick={handleClick}>
         <div className={styles.component}>

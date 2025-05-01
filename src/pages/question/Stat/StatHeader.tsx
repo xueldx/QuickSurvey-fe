@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { Space, Button, Typography, Tooltip, message, Popover } from 'antd'
 import copy from 'copy-to-clipboard'
 import QRCode from 'qrcode.react'
@@ -19,10 +19,9 @@ const StatHeader: FC = () => {
     message.success('复制成功')
   }
 
-  const QRCodeEle = <QRCode value={url} size={100}></QRCode>
   function genLinkAndQRCode() {
     if (!isPublished) return null
-
+    const QRCodeEle = <QRCode value={url} size={100}></QRCode>
     return (
       <Space align="center">
         <Tooltip title="问卷分享链接">
@@ -38,6 +37,9 @@ const StatHeader: FC = () => {
     )
   }
 
+  //性能优化：使用useMemo缓存第三方QR（useMemo使用场景：依赖项不经常变化+生成元素的成本较高）
+  const LinkAndQRcodeEle = useMemo(genLinkAndQRCode, [isPublished, url])
+
   return (
     <div className={styles['header-wrapper']}>
       <div className={styles.header}>
@@ -49,7 +51,7 @@ const StatHeader: FC = () => {
             <Title>{title}</Title>
           </Space>
         </div>
-        <div className={styles.main}>{genLinkAndQRCode()}</div>
+        <div className={styles.main}>{LinkAndQRcodeEle}</div>
         <div className={styles.right}>
           <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
             编辑问卷

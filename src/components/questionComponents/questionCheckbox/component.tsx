@@ -34,7 +34,7 @@ const QuestionCheckbox: FC<QuestionCheckboxPropsType> = (props: QuestionCheckbox
         <Space direction={isVertical ? 'vertical' : 'horizontal'}>
           {list.map(({ value, text, checked }) => {
             return (
-              <Checkbox key={value + nanoid()} checked={checked}>
+              <Checkbox key={value + nanoid()} checked={checked} value={value}>
                 {text}
               </Checkbox>
             )
