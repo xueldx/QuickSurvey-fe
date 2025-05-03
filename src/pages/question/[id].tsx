@@ -6,7 +6,7 @@ import styles from '@/styles/Question.module.scss'
 type PropsType = {
   errno: number,
   data?: {
-    id: string
+    _id: string
     title: string
     desc?: string
     js?: string
@@ -29,7 +29,7 @@ export default function Question(props: PropsType) {
     </PageWrapper>
   }
 
-  const { id, title = '', desc = '', isDeleted, isPublished, componentList = [] } = data || {}
+  const { _id, title = '', desc = '', isDeleted, isPublished, componentList = [] } = data || {}
 
   // 已经被删除的，提示错误
   if (isDeleted) {
@@ -59,7 +59,7 @@ export default function Question(props: PropsType) {
 
   return <PageWrapper title={title} desc={desc}>
     <form method='post' action="/api/answer">
-      <input type="hidden" name="questionId" value={id}/>
+      <input type="hidden" name="questionId" value={_id}/>
       
       {ComponentListElem}
 

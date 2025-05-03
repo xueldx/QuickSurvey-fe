@@ -38,3 +38,5 @@ next-env.d.ts
 .specstory/.what-is-this.md
 
 .specstory
+
+/test.html
