@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 import styles from './ManageLayout.module.scss'
 import { Button, Divider, Space, message } from 'antd'
@@ -10,23 +10,10 @@ import { creatQuestionService } from '../services/question'
 const ManageLayout: FC = () => {
   const nav = useNavigate()
   const { pathname } = useLocation()
-
-  // const [loading, setLoading] = useState(false)
-
-  // async function handlerCreatQuestion() {
-  //   setLoading(true)
-  //   const data = await creatQuestionService()
-  //   const { id } = data || {}
-  //   if (id) {
-  //     nav(`/question/edit/${id}`)
-  //     message.success('创建成功')
-  //   }
-  //   setLoading(false)
-  // }
   const { loading, run: handlerCreatQuestion } = useRequest(creatQuestionService, {
     manual: true,
     onSuccess: result => {
-      nav(`/question/edit/${result.id}`)
+      nav(`/question/edit/${result.id || result._id}`)
       message.success('创建成功')
     },
   })

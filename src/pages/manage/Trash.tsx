@@ -8,6 +8,7 @@ import ListSearch from '../../components/ListSearch'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import ListPage from '../../components/ListPage'
 import { updateQuestionService, deleteQuestionService } from '../../services/question'
+import convertISODateToDate from '../../utils/convertISODateToDate'
 
 const { Title } = Typography
 const { confirm } = Modal
@@ -38,6 +39,9 @@ const col = [
   {
     title: '创建时间',
     dataIndex: 'createdAt',
+    render: (createdAt: string) => {
+      return convertISODateToDate(createdAt)
+    },
   },
 ]
 

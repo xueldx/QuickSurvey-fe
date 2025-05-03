@@ -7,11 +7,17 @@ import { useRequest } from 'ahooks'
 import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME } from '../router'
 import { setToken } from '../utils/user-token'
 import { loginService } from '../services/user'
+import { loginReducer } from '../store/userReducer'
+import { useDispatch } from 'react-redux'
+import { getUserInfoService } from '../services/user'
+
 const { Title } = Typography
 const Login: FC = () => {
   const USERNAME_KEY = 'USERNAME'
   const PASSWORD_KEY = 'PASSWORD'
   const nav = useNavigate()
+  const dispatch = useDispatch()
+
   //记住我
   function rememberUser(userName: string, password: string) {
     localStorage.setItem(USERNAME_KEY, userName)
@@ -36,6 +42,11 @@ const Login: FC = () => {
     form.setFieldsValue({ userName, password })
   }, [])
 
+  //登录后获取用户信息
+  async function getUserInfo() {
+    const { username, nickname } = await getUserInfoService()
+    dispatch(loginReducer({ username, nickname })) //成功后把用户信息存到redux中
+  }
   //用户登录
   const { run } = useRequest(
     async (userName: string, password: string) => {
@@ -44,9 +55,10 @@ const Login: FC = () => {
     },
     {
       manual: true,
-      onSuccess(result) {
+      async onSuccess(result) {
         const { token = '' } = result
         setToken(token)
+        await getUserInfo()
         message.success('登录成功')
         nav(MANAGE_INDEX_PATHNAME)
       },

@@ -81,6 +81,7 @@ const PubButton: FC = () => {
   const nav = useNavigate()
   const { id } = useParams()
   const pageInfo = useGetPageInfo()
+  const { isPublished } = pageInfo
   const { componentList } = useGetComponentInfo()
   const { loading, run: pub } = useRequest(
     async () => {
@@ -99,10 +100,10 @@ const PubButton: FC = () => {
     <Button
       onClick={pub}
       type="primary"
-      disabled={loading}
+      disabled={loading || isPublished}
       icon={loading ? <LoadingOutlined /> : ''}
     >
-      发布
+      {isPublished ? '问卷已发布' : '发布'}
     </Button>
   )
 }

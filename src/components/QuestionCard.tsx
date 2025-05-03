@@ -4,6 +4,7 @@ import { Button, Space, Divider, Tag, Popconfirm, Modal, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { updateQuestionService, duplicateQuestionService } from '../services/question'
 import { useRequest } from 'ahooks'
+import convertISODateToDate from '../utils/convertISODateToDate'
 
 import {
   EditOutlined,
@@ -53,7 +54,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
     {
       manual: true,
       onSuccess(result) {
-        nav(`/question/edit/${result.id}`)
+        nav(`/question/edit/${result.id || result._id}`)
         message.success('复制成功')
       },
     }
@@ -98,7 +99,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
             {isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>}
 
             <span>答卷:&nbsp;{answerCount}</span>
-            {createdAt}
+            {convertISODateToDate(createdAt)}
           </Space>
         </div>
       </div>
