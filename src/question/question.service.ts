@@ -57,7 +57,8 @@ export class QuestionService {
 
     // 更新
     async updateQuestion(id:string,author:string,questionDto){
-        return await this.questionModel.updateOne({_id:id,author},questionDto);
+        const result = await this.questionModel.updateOne({ _id: id, author }, questionDto);
+        return result;     
     }
 
     // 查询单个

@@ -2,6 +2,7 @@ import { Controller, Request,Get,UseGuards, Patch,Query,Param, Body,HttpExceptio
 import {QuestionDto} from './dto/question.dto'
 import {QuestionService} from './question.service'
 import {AuthGuard} from '../auth/auth.guard'
+import { Public } from '../auth/decorators/public.decorator';
 
 
 @Controller('question')
@@ -39,12 +40,14 @@ export class QuestionController {
 
   //更新问卷
   @Patch(':id')
-  updateQuestion(@Param('id')id:string,@Body() questionDto:QuestionDto,@Request() req){
+  updateQuestion(@Param('id')id:string,@Body() questionDtoOPt,@Request() req){
     const {username:author}=req.user
-    return this.questionService.updateQuestion(id,author,questionDto);
+    const {ops}=questionDtoOPt
+    return this.questionService.updateQuestion(id,author,ops);
   }
 
   //查询单个问卷
+  @Public()
   @Get(':id')
   findone(@Param('id') id:string ){
     return this.questionService.findOne(id);
@@ -56,7 +59,7 @@ export class QuestionController {
     @Query('keyword') keyword:string,
     @Query('page') page:number,
     @Query('pageSize') pageSize:number,
-    @Query('isStar') isStar:boolean=false,
+    @Query('isStar') isStar:boolean,
     @Query('isDeleted') isDeleted:boolean=false,
     @Request() req
   ) {
