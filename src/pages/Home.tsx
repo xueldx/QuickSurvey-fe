@@ -11,7 +11,7 @@ const Home: FC = () => {
     <div className={styles.container}>
       <div className={styles.info}>
         <Title>问卷调查 | 在线投票</Title>
-        <Paragraph>已累计创建问卷1090份，发布问卷100份，收到答卷10000份</Paragraph>
+        <Paragraph>一站式问卷调查与在线投票解决方案，助力精准数据收集与分析！</Paragraph>
         <Button
           type="primary"
           onClick={() => {

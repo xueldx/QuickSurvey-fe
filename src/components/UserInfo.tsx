@@ -26,7 +26,7 @@ const Login: FC = () => {
 
   const userInfo = (
     <>
-      <span style={{ color: '#e8e8e8' }}>
+      <span style={{ color: '#000' }}>
         <UserOutlined />
         {nickname}
       </span>

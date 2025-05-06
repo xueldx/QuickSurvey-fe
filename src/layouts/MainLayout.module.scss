@@ -1,9 +1,13 @@
 .header{
     display: flex;
+    height: calc(7vh);
     padding: 0 24px;
     justify-content: space-between;
     align-items: center;
-    color:#fff;
+    color: #000;
+    background: rgba(245,245,245); 
+    border-bottom: 1px  solid #ccc;
+
     .left{
 
     }

@@ -16,18 +16,18 @@ const MainLayout: FC = () => {
 
   return (
     <Layout>
-      <Header className={styles.header}>
+      <div className={styles.header}>
         <div className={styles.left}>
           <Logo />
         </div>
         <div className={styles.right}>
           <UserInfo />
         </div>
-      </Header>
+      </div>
       <Content className={styles.main}>
         {waitingLoadUserData ? <Spin></Spin> : <Outlet></Outlet>}
       </Content>
-      <Footer className={styles.footer}>小慕问卷©2025-present.Created by xue</Footer>
+      <Footer className={styles.footer}>搭搭问&nbsp;©2025-present.Created by 雪团团的小爪子</Footer>
     </Layout>
   )
 }
