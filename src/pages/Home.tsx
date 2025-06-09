@@ -11,17 +11,17 @@ const Home: FC = () => {
 
   const features = [
     {
-      icon: <FormOutlined style={{ fontSize: '36px' }} />,
+      icon: <FormOutlined style={{ fontSize: '32px' }} />,
       title: '专业问卷设计',
       desc: '丰富的题型支持，灵活的表单配置',
     },
     {
-      icon: <TeamOutlined style={{ fontSize: '36px' }} />,
+      icon: <TeamOutlined style={{ fontSize: '32px' }} />,
       title: '高效数据收集',
       desc: '多渠道分享，快速获取反馈',
     },
     {
-      icon: <BarChartOutlined style={{ fontSize: '36px' }} />,
+      icon: <BarChartOutlined style={{ fontSize: '32px' }} />,
       title: '智能数据分析',
       desc: '可视化报表，深度洞察数据',
     },
@@ -30,7 +30,7 @@ const Home: FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
-        <Space direction="vertical" size="large" align="center">
+        <Space direction="vertical" size="middle" align="center">
           <Title level={1} className={styles.mainTitle}>
             问卷调查 | 在线投票
           </Title>
@@ -48,7 +48,7 @@ const Home: FC = () => {
         </Space>
       </div>
 
-      <Row className={styles.features} gutter={[48, 48]}>
+      <Row className={styles.features} gutter={[24, 24]}>
         {features.map((feature, index) => (
           <Col xs={24} sm={8} key={index}>
             <div className={styles.featureCard}>
