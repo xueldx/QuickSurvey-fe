@@ -11,7 +11,7 @@ import { LIST_SEARCH_PARAMS_KEY, LIST_PAGE_NUMBER } from '../../constant'
 const { Title } = Typography
 
 const List: FC = () => {
-  useTitle('搭搭问-我的问卷')
+  useTitle('问卷小筑-我的问卷')
   const [searchParams] = useSearchParams()
   const [list, setList] = useState([]) //已经加载的数据列表
   const [page, setPage] = useState(1) //当前加载的页数,不在url中体现

@@ -12,7 +12,7 @@ import ListPage from '../../components/ListPage'
 const { Title } = Typography
 
 const Star: FC = () => {
-  useTitle('搭搭问-星标问卷')
+  useTitle('问卷小筑-星标问卷')
   const { data = {}, loading } = useLoadQuestionListData({ isStar: true })
   const { list = [], total = 0 } = data
 

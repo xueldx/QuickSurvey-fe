@@ -27,7 +27,9 @@ const MainLayout: FC = () => {
       <Content className={styles.main}>
         {waitingLoadUserData ? <Spin></Spin> : <Outlet></Outlet>}
       </Content>
-      <Footer className={styles.footer}>搭搭问&nbsp;©2025-present.Created by 雪团团的小爪子</Footer>
+      <Footer className={styles.footer}>
+        问卷小筑&nbsp;©2025-present.Created by 雪团团的小爪子
+      </Footer>
     </Layout>
   )
 }

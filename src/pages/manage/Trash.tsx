@@ -46,7 +46,7 @@ const col = [
 ]
 
 const Trash: FC = () => {
-  useTitle('搭搭问-回收站')
+  useTitle('问卷小筑-回收站')
   const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true })
   const { list = [], total = 0 } = data
   const [selectedIds, setSelectedIds] = useState<string[]>([])

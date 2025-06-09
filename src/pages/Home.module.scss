@@ -1,21 +1,94 @@
-.container{
+.container {
     width: 100%;
-    height: calc(100vh - 64px - 65px);
-    position: relative;
-    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-    
-    .info{
-        position: fixed;
-        left: 50%;
-        top:50%;
-        transform:translate(-50%,-50%);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        button {
-                height: 60px;
-                font-size: 24px;
-            }
+    min-height: 100vh;
+    background: #ffffff;
+    padding: 80px 24px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 80px;
+    padding: 40px 0;
+    background: #f5f7fa;
+    border-radius: 16px;
+}
+
+.mainTitle {
+    color: #1f1f1f !important;
+    font-size: 48px !important;
+    margin-bottom: 24px !important;
+    font-weight: 700 !important;
+}
+
+.subtitle {
+    color: #666 !important;
+    font-size: 20px !important;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ctaButton {
+    height: 50px;
+    padding: 0 40px;
+    font-size: 18px;
+    border-radius: 8px;
+    background: #1890ff;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: #40a9ff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+    }
+}
+
+.features {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.featureCard {
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+}
+
+.featureIcon {
+    margin-bottom: 24px;
+    color: #1890ff;
+}
+
+.featureCard h3 {
+    color: #1f1f1f !important;
+    margin-bottom: 16px !important;
+}
+
+.featureCard p {
+    color: #666 !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .mainTitle {
+        font-size: 36px !important;
+    }
+
+    .subtitle {
+        font-size: 18px !important;
+    }
+
+    .features {
+        padding: 0 16px;
     }
 }
